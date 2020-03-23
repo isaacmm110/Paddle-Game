@@ -1,3 +1,4 @@
+#By Isaac M.M based on the book Python for Kids
 from tkinter import *
 import random
 import time
