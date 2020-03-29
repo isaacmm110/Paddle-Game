@@ -1,8 +1,8 @@
-#By Isaac M.M based on the book Python for Kids
 from tkinter import *
 import random
 import time
 
+nivel = 1
 score = 0
 def iniciar():
     
@@ -18,35 +18,57 @@ def iniciar():
             self.y = -3
             self.canvas_height = self.canvas.winfo_height()
             self.canvas_width = self.canvas.winfo_width()
+            #global self.hit_bottom
             self.hit_bottom = False
-            
+
 
         def hit_paddle(self, pos):
             paddle_pos = self.canvas.coords(self.paddle.id)
-            
             if pos[2] >= paddle_pos[0] and pos[0] <= paddle_pos[2]:
                 if pos[3] >= paddle_pos[1] and pos[3] <= paddle_pos[3]:
                     global score
                     global j
                     score = score + 1
                     canvas.delete(j)
-                    j = canvas.create_text(30, 10, text=("Score", score), font=("Comic Sans", 10)             
+                    j = canvas.create_text(30, 10, text=("Score", score), font=("Comic Sans", 10))
+                    
+                    if (score % 10 == 0):
+                        global nivel
+                        nivel = nivel + 1
+                        w = canvas.create_text(200, 200, text=('Nivel', nivel), font=("Comic Sans", 50))
+                        #time.sleep(1)
+                        #canvas.delete(w)
+                    
                     return True
                 return False
 
+
+                 
+
         def draw(self):
             self.canvas.move(self.id, self.x, self.y)
+            global x
+            global xx
+            x = 2
+            xx = -2
             pos = self.canvas.coords(self.id)
             if pos[1] <= 0:
-                self.y = 2
+                self.y = x
             if pos[3] >= self.canvas_height:
                 self.hit_bottom = True
+            if self.hit_bottom == True:
+                global f
+                f = canvas.create_text(200, 200, text=("Game Over"), font=("Comic Sans", 50))
+                #canvas.delete(f)
+                global nivel
+                nivel = 1
+                pass
             if self.hit_paddle(pos) == True:
-                self.y = -2
+                self.y = xx
             if pos[0] <= 0:
-                self.x = 2
+                self.x = x
             if pos[2] >= self.canvas_width:
-                self.x = -2
+                self.x = xx
 
 
     
@@ -76,7 +98,6 @@ def iniciar():
             self.x = 3
 
 
-
     def start_game():
         
         canvas.delete("all")
@@ -89,10 +110,13 @@ def iniciar():
         global j
         j = canvas.create_text(30, 10, text=("Score", score), font=("Comic Sans", 10))
 
+    
         while 1:
             if ball.hit_bottom == False:
                 ball.draw()
                 paddle.draw()
+
+                
             '''
             if ball2.hit_bottom == False:
                 ball2.draw()
@@ -113,9 +137,12 @@ def iniciar():
     tk.wm_attributes("-topmost", 1)
     canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0)
     btn = Button(tk, text="Start", command=start_game)
+
+
     btn.pack()
     canvas.pack()
     tk.update()
+    
         
 
 
