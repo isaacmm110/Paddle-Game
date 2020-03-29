@@ -2,6 +2,7 @@ from tkinter import *
 import random
 import time
 
+nivel = 1
 score = 0
 def iniciar():
     
@@ -29,10 +30,18 @@ def iniciar():
                     global j
                     score = score + 1
                     canvas.delete(j)
-                    j = canvas.create_text(30, 10, text=("Score", score), font=("Comic Sans", 10))             
+                    j = canvas.create_text(30, 10, text=("Score", score), font=("Comic Sans", 10))
+                    
+                    if (score % 10 == 0):
+                        global nivel
+                        nivel = nivel + 1
+                        w = canvas.create_text(200, 200, text=('Nivel', nivel), font=("Comic Sans", 50))
+                        #time.sleep(1)
+                        #canvas.delete(w)
+                    
                     return True
                 return False
-        
+
 
                  
 
@@ -51,6 +60,8 @@ def iniciar():
                 global f
                 f = canvas.create_text(200, 200, text=("Game Over"), font=("Comic Sans", 50))
                 #canvas.delete(f)
+                global nivel
+                nivel = 1
                 pass
             if self.hit_paddle(pos) == True:
                 self.y = xx
@@ -87,7 +98,6 @@ def iniciar():
             self.x = 3
 
 
-
     def start_game():
         
         canvas.delete("all")
@@ -100,10 +110,13 @@ def iniciar():
         global j
         j = canvas.create_text(30, 10, text=("Score", score), font=("Comic Sans", 10))
 
+    
         while 1:
             if ball.hit_bottom == False:
                 ball.draw()
                 paddle.draw()
+
+                
             '''
             if ball2.hit_bottom == False:
                 ball2.draw()
