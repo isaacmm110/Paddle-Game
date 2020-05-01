@@ -31,16 +31,15 @@ def iniciar():
                     score = score + 1
                     canvas.delete(j)
                     j = canvas.create_text(30, 10, text=("Score", score), font=("Comic Sans", 10))
-                    
                     if (score % 10 == 0):
+                        global w
                         global nivel
                         nivel = nivel + 1
-                        w = canvas.create_text(200, 200, text=('Nivel', nivel), font=("Comic Sans", 50))
-                        #time.sleep(1)
+                        w = canvas.create_text(250, 200, text=('Nivel', nivel), font=("Comic Sans", 50))
+                        time.sleep(1)
                         #canvas.delete(w)
-                    
                     return True
-                return False
+                return False    
 
 
                  
@@ -58,8 +57,7 @@ def iniciar():
                 self.hit_bottom = True
             if self.hit_bottom == True:
                 global f
-                f = canvas.create_text(200, 200, text=("Game Over"), font=("Comic Sans", 50))
-                #canvas.delete(f)
+                f = canvas.create_text(250, 200, text=("Game Over"), font=("Comic Sans", 50))
                 global nivel
                 nivel = 1
                 pass
@@ -131,13 +129,15 @@ def iniciar():
             tk.update()
             time.sleep(0.01)
         
+
+    
     tk = Tk()
     tk.title("Game")
     tk.resizable(0, 0)
     tk.wm_attributes("-topmost", 1)
     canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0)
     btn = Button(tk, text="Start", command=start_game)
-
+    #w = canvas.create_text(200, 200, text=('Nivel', nivel), font=("Comic Sans", 50))
 
     btn.pack()
     canvas.pack()
